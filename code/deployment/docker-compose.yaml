@@ -1,0 +1,22 @@
+networks:
+  net:
+    driver: bridge
+
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "5000:80"
+    networks:
+     - net
+    container_name: api
+  app:
+    build: ./app
+    ports:
+      - "5001:8501"
+    networks:
+      - net
+    environment:
+      - API_URL=http://api:80/upload
+    container_name: app
